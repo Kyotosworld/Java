@@ -1,6 +1,7 @@
+package IE;
 import java.util.Scanner;
 
-public class IEJanvier2014 {
+public class Janvier2014 {
 
     public static int minimum(int a, int b) {
         if (a <= b)
