@@ -2,4 +2,10 @@
 */*.class
 */*/*.class
 
+*.sh
+*/*.sh
+*/*/*.sh
+
+test.java
 */test.java
+*/*/test.java
