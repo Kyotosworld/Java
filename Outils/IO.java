@@ -2,8 +2,6 @@ package Outils;
 import java.util.Scanner;
 import java.lang.Math;
 
-//https://help.github.com/articles/changing-a-remote-s-url/
-
 public class IO {
 
     private static String[] def      = {"un booleen (true/false)",
