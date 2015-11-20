@@ -2,18 +2,20 @@ package Outils;
 import java.util.Scanner;
 import java.lang.Math;
 
-public class TermInput {
+//https://help.github.com/articles/changing-a-remote-s-url/
 
-    private static Scanner  scanner  = new Scanner(System.in);
-    private static boolean  done     = false;
-    private static String[] def      = {"un booléen (true/false)",
+public class IO {
+
+    private static String[] def      = {"un booleen (true/false)",
                                         "un nombre entier relatif (-1, 0, 1, 2, 3...)",
-                                        "un entier signé sur 4 bytes (int dans [-"+   (int)(Math.pow(2, 32)-1) +"; "+ (int)Math.pow(2, 32) +"])",
-                                        "un réel signé sur 8 bytes (double dans [-"+  (int)(Math.pow(2, 64)-1) +"; "+ (int)Math.pow(2, 64) +"])",
+                                        "un entier signe sur 4 bytes (int dans [-"+   (int)(Math.pow(2, 32)-1) +"; "+ (int)Math.pow(2, 32) +"])",
+                                        "un reel signe sur 8 bytes (double dans [-"+  (int)(Math.pow(2, 64)-1) +"; "+ (int)Math.pow(2, 64) +"])",
                                         "une lettre (a-z/A-Z)",
-                                        "une chaîne de caractères"};
+                                        "une chaine de caracteres"};
 
     public static boolean getBoolean(String ask, String errString) {
+        Scanner scanner  = new Scanner(System.in);
+        boolean done     = false;
         String input     = new String();
 
         while (!done) {
@@ -31,7 +33,7 @@ public class TermInput {
             else
                 System.out.println(errString);
         }
-        return false;                                   // normalement jamais atteint
+        return true;                                   // normalement jamais atteint
     }
 
     public static boolean getBoolean(String ask) {
@@ -44,10 +46,12 @@ public class TermInput {
 
 
     public static int getInt(int inf, int sup, String ask) {
+        Scanner scanner    = new Scanner(System.in);
+        boolean done       = false;
         int i              = 0;
         int input          = 0;
         int[] inter        = {};
-        String errorString = new String();
+        String errorString = "";
 
         if (inf >= sup)
             throw new java.lang.NegativeArraySizeException();
@@ -62,10 +66,7 @@ public class TermInput {
                 input = scanner.nextInt();
             } catch (java.util.InputMismatchException error) {
                 errorString = "" + error;
-                if (errorString.equals("java.util.InputMismatchException"))
-                    System.out.println("Erreur: entrez "+ def[1]);
-                else
-                    System.out.println("Erreur: entrez "+ def[2]);
+                System.out.println((errorString.equals("java.util.InputMismatchException")? "Erreur: entrez "+ def[1]: "Erreur: entrez "+ def[2]));
                 scanner.next();
                 continue;
             }
@@ -85,8 +86,10 @@ public class TermInput {
 
 
     public static int getInt(String infNotDefined, int sup, String ask) {
+        Scanner scanner    = new Scanner(System.in);
+        boolean done       = false;
         int input          = 0;
-        String errorString = new String();
+        String errorString = "";
 
         while (!done) {
             System.out.print(ask);
@@ -94,31 +97,28 @@ public class TermInput {
                 input = scanner.nextInt();
             } catch (java.util.InputMismatchException error) {
                 errorString = "" + error;
-                if (errorString.equals("java.util.InputMismatchException"))
-                    System.out.println("Erreur: entrez "+ def[1]);
-                else
-                    System.out.println("Erreur: entrez "+ def[2]);
+                System.out.println((errorString.equals("java.util.InputMismatchException")? "Erreur: entrez "+ def[1]: "Erreur: entrez "+ def[2]));
                 scanner.next();
                 continue;
             }
-            if (input <= sup) {
+            if (input <= sup)
                 done = true;
-            //    scanner.next();
-            }
             else
-                System.out.println("Erreur:"+ input +" est strictement supérieur à "+ sup);
+                System.out.println("Erreur:"+ input +" est strictement superieur a "+ sup);
         }
         return input;
     }
 
     public static int getInt(String infNotDefined, int sup) {
-        return getInt("None", sup, "Entrez "+ def[1] +" inférieur à "+ sup +": ");
+        return getInt("None", sup, "Entrez "+ def[1] +" inferieur a "+ sup +": ");
     }
 
 
     public static int getInt(int inf, String supNotDefined, String ask) {
+        Scanner scanner    = new Scanner(System.in);
+        boolean done       = false;
         int input          = 0;
-        String errorString = new String();
+        String errorString = "";
 
         while (!done) {
             System.out.print(ask);
@@ -126,27 +126,25 @@ public class TermInput {
                 input = scanner.nextInt();
             } catch (java.util.InputMismatchException error) {
                 errorString = "" + error;
-                if (errorString.equals("java.util.InputMismatchException"))
-                    System.out.println("Erreur: entrez "+ def[1]);
-                else
-                    System.out.println("Erreur: entrez "+ def[2]);
+                System.out.println((errorString.equals("java.util.InputMismatchException")? "Erreur: entrez "+ def[1]: "Erreur: entrez "+ def[2]));
                 scanner.next();
                 continue;
             }
             if (input >= inf)
                 done = true;
             else
-                System.out.println("Erreur: "+ input +" est strictement inférieur à "+ inf);
+                System.out.println("Erreur: "+ input +" est strictement inferieur a "+ inf);
         }
         return input;
     }
 
     public static int getInt(int inf, String supNotDefined) {
-        return getInt(inf, "None", "Entrez "+ def[1] +" supérieur à "+ inf +": ");
+        return getInt(inf, "None", "Entrez "+ def[1] +" superieur a "+ inf +": ");
     }
 
 
     public static String getString() {
+        Scanner  scanner  = new Scanner(System.in);
         System.out.print(def[5]);
         String input = scanner.nextLine();
         return input;
