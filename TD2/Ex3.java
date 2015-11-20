@@ -1,5 +1,5 @@
 package TD2;
-import Outils.TermInput;
+import Outils.IO;
 import java.util.Scanner;
 
 public class Ex3 {
@@ -24,15 +24,15 @@ public class Ex3 {
 
         final boolean PROMOTION_TOMME_SAVOIE = false;
 
-        /* Déclaration et initialisation des variables */
-//        int billets20   = TermInput.getInt(0, "None", "Combien ai-je de billets de 20€ ? ");
-//        int billets10   = TermInput.getInt(0, "None", "Combien ai-je de billets de 10€ ? ");
-//        int pieces2     = TermInput.getInt(0, "None", "Combien ai-je de pièces de 2€ ? ");
-
+/*
         Scanner sc = new Scanner(System.in);
         int billets20 = sc.nextInt();
         int billets10 = sc.nextInt();
         int pieces2 = sc.nextInt();
+*/
+        int billets20 = Outils.IO.getInt(0, "None", "Combien ais-je de billets de 20€ ? ");
+        int billets10 = Outils.IO.getInt(0, "None", "Combien ais-je de billets de 10€ ? ");
+        int pieces2   = Outils.IO.getInt(0, "None", "Combien ais-je de pièces de 2€ ? ");
 
         int somme       = billets20*2000 + billets10*1000 + pieces2*200;                  //la somme qu'il y a dans mon porte monnaie
         int poidsPanier = 0;

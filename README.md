@@ -24,3 +24,12 @@ Mais si un objet utilise les ressources d'un autre package, (par exemple l'exerc
 $ javac -classpath . TD2/Ex3.java                 # TD2/Ex3 ne peut compiler sans l'option classpath
 $ java TD2/Ex3
 ```
+Enfin, la saisie de données se fait avec une classe particulière, la classe IO du package Outils, par exemple:
+```
+Outils.IO.getInt(0, "None", "Entrez la borne supérieure: ");
+```
+Cette classe ne fait que vérifier les données entrées pour ne pas accepter une saisie non-conforme, mais ne récupère pas elle-même les données à partir du flux d'entrée. On peut donc très bien s'en passer et remplacer ces lignes par:
+```
+Scanner sc = new Scanner(System.in);
+int entier = sc.nextInt();
+```
