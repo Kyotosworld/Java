@@ -2,7 +2,7 @@ package TD2;
 
 public class Ex2 {
     /* Ce programme illustre l'utilisation du type booleen dans des instructions conditionnelles.
-     * Il permet d'identifier un arbre a partir d'observations (feuilles simples ou pas, alternees, etc) ; 
+     * Il permet d'identifier un arbre a partir d'observations (feuilles simples ou pas, alternees, etc) ;
      * Les observations sont codees sous forme de constantes de type booleen. La valeur d'une constante n'est pas modifiee durant l'execution du programme.
      * Nous supposons que la foret observee est constituee uniquement d'Erables, de Chenes, de Charmes, de Tilleuls et de Frenes.
      * Les regles utilisees sont une simplification de celles proposees par l'ONF a l'adresse :
@@ -20,7 +20,7 @@ public class Ex2 {
         final boolean FEUILLE_COEUR = false; //FEUILLE_COEUR vrai si la feuille a la forme d'un coeur
         final boolean BOUT_POINTU = false ; //BOUT_POINTU vrai si le bout de la feuille est pointu
         final boolean FLEUR_ODORANTE = false ; //FLEUR_ODORANTE vrai si les fleurs sont odorantes
-        
+
         if (FEUILLES_SIMPLES){
             System.out.println("Le specimen a des feuilles simples.");                                      // (1)
             if(FEUILLES_ALTERNEES){
@@ -43,7 +43,7 @@ public class Ex2 {
                     System.out.println("Il a des feuilles a bord lobe (et non dente).");                    // (6)
                     System.out.println("Cela pourrait etre : un Chene (Oak, en anglais)");
                 }
-                
+
             } else { // les feuilles ne sont pas alternees mais opposees
                 System.out.println("Il a des feuilles opposees.");                                          // (7)
                 System.out.println("Cela pourrait etre : un Erable (Maple, en anglais) ");
@@ -51,7 +51,7 @@ public class Ex2 {
         } else { //les feuilles ne sont pas simples ; elles sont composees
             System.out.println("Le specimen a des feuilles composees.");                                    // (8)
             System.out.println("Cela pourrait etre : un Frene (Ash tree, en anglais) ");
-        }   
+        }
 
         /*  Affichage final     : (1)(2)(3)(4)
             Valeurs proposees 1 : (1)(2)(6)

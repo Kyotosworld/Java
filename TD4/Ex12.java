@@ -12,7 +12,7 @@ public class Ex12 {
     public static void main(String[] args) {
         final int N = 765;
         String pairImpair = "";
-        
+
         pairImpair = estPair(N);
         System.out.println(pairImpair);
     }

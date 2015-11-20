@@ -106,7 +106,7 @@ Q 2.1
     public static int pgcd(int a, int b) {
         int pgcd = 0;
         int compteur = 0;
- 
+
 //      Si il n'y a qu'une instruction après un if/elseif/else, on peut l'écrire sans { et }
         if (a == 0 && b == 0)       // si a et b == 0   -> PGCD = 0
             return 0;

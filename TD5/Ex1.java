@@ -2,7 +2,7 @@ package TD5;
 
 public class Ex1 {
 /* ALGORITHME ListerNombresParfaits
-    
+
     Entrée:
     DECLARER VARIABLE borneInf      UN entier positif ou  nul
     DECLARER VARIABLE borneSup      UN entier positif non-nul
@@ -76,7 +76,7 @@ public class Ex1 {
     public static void afficheParfaits(int max) {
         int i = 0;
         String parfaits = "Nombres parfaits appartenant à [0; "+ max +"]:" ;
-        
+
         for (i=0; i<=max; i++) {
             if (parfait(i))
                 parfaits += "\n"+ i;
