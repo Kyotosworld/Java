@@ -1,7 +1,3 @@
-/* Voilà le fichier de test
- * Untitled.java
- */
-
 public class untitled {
     // Voilà un commentaire sur une seule ligne
 
