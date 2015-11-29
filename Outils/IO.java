@@ -4,42 +4,37 @@ import java.lang.Math;
 
 public class IO {
 
-    private static String[] def      = {"un booleen (true/false)",
+    private static String[] def      = {"un booleen (oui/non)",
                                         "un nombre entier relatif (-1, 0, 1, 2, 3...)",
                                         "un entier signe sur 4 bytes (int dans [-"+   (int)(Math.pow(2, 32)-1) +"; "+ (int)Math.pow(2, 32) +"])",
                                         "un reel signe sur 8 bytes (double dans [-"+  (int)(Math.pow(2, 64)-1) +"; "+ (int)Math.pow(2, 64) +"])",
                                         "une lettre (a-z/A-Z)",
                                         "une chaine de caracteres"};
 
-    public static boolean getBoolean(String ask, String errString) {
-        Scanner scanner  = new Scanner(System.in);
-        boolean done     = false;
-        String input     = new String();
+    public static boolean getBoolean(String ask, String[] check) {
+        Scanner scanner = new Scanner(System.in);
+        String  input   = new String();
 
-        while (!done) {
+        while (true) {
             System.out.print(ask);
             input = scanner.nextLine();
 
-            if (input.equals("true")) {
-                done = true;
+            if (input.equals(check[0]))
                 return true;
-            }
-            else if (input.equals("false")) {
-                done = false;
+            else if (input.equals(check[1]))
                 return false;
-            }
-            else
-                System.out.println(errString);
+
+            System.out.println("Erreur: entrez "+ check[0] +" ou "+ check[1]);
         }
-        return true;                                   // normalement jamais atteint
+//        return true;                                   UnreachableStatement
     }
 
     public static boolean getBoolean(String ask) {
-        return getBoolean(ask, "Erreur: entrez "+ def[0] +"." );
+        return getBoolean(ask, new String[] {"oui", "non"});
     }
 
     public static boolean getBoolean() {
-        return getBoolean("Entrez "+ def[0] +": ", "Erreur !");
+        return getBoolean("Entrez "+ def[0] +": ", new String[] {"oui", "non"});
     }
 
 
@@ -141,10 +136,40 @@ public class IO {
     }
 
 
-    public static String getString() {
-        Scanner  scanner  = new Scanner(System.in);
-        System.out.print(def[5]);
-        String input = scanner.nextLine();
+    public static int getInt(String ask) {
+        Scanner scanner    = new Scanner(System.in);
+        boolean done       = false;
+        int input          = 0;
+        String errorString = "";
+
+        while (!done) {
+            System.out.print(ask);
+            try {
+                input = scanner.nextInt();
+                done = true;
+            } catch (java.util.InputMismatchException error) {
+                errorString = "" + error;
+                System.out.println((errorString.equals("java.util.InputMismatchException")? "Erreur: entrez "+ def[1]: "Erreur: entrez "+ def[2]));
+                scanner.next();
+                continue;
+            }
+        }
         return input;
     }
+
+    public static int getInt() {
+        return getInt("Entrez "+ def[1] +": ");
+    }
+
+
+    public static String getString(String ask) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print(ask);
+        return scanner.nextLine();
+    }
+
+    public static String getString() {
+        return getString("Entrez "+ def[5] +": ");
+    }
+
 }
