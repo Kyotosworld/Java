@@ -1,3 +1,4 @@
+package untitled;
 import java.awt.Color;
 
 public class Chat {
@@ -12,12 +13,10 @@ public class Chat {
     public static final int MALHEUREUX = 1;
 
     public static void main(String[] args) {
-        String[] tableau = {"azerty", "uiop"};
         Chat monChat = new Chat(1, Color.BLUE, Color.RED, Chat.PARTIELLEMENT_HEUREUX);
         System.out.println("Mon chat est "+monChat.getMental());
         Chat monDeuxiemeChat = new Chat(1, Color.BLACK, Color.YELLOW);
         System.out.println("Mon chat est "+monDeuxiemeChat.getMental());
-//        monDeuxiemeChat.main(tableau);                                                      // java.lang.StackOverflowError
     }
 
     public Chat(int age, Color yeux, Color fourrure) {
