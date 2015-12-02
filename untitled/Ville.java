@@ -2,22 +2,24 @@ package untitled;
 
 public class Ville extends Object {
     
-    private String ville  = "";
-    private String pays   = "";
-    private int habitants = 0;
+    private String ville;
+    private String pays;
+    private int habitants;
 
     public static int nbrVilles = 0;
 
 
-    public Ville(String ville, String pays, int habitants) {
-        System.out.println("Instance de Ville créée !");
+    public Ville(String ville, int habitants, String pays) {
         this.ville = ville;
         this.pays = pays;
         this.habitants = habitants;
         nbrVilles++;
     }
+    public Ville() {
+        this("Inconnu", 0, "France");
+    }
 
-    public void description() {
-        System.out.println(ville +" est une ville de "+ habitants +" située en "+ pays);
+    public String toString() {
+        return this.ville +" est une ville de "+ this.habitants +" habitants située en "+ this.pays;
     }
 }
