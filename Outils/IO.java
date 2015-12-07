@@ -11,6 +11,12 @@ public class IO {
                                         "une lettre (a-z/A-Z)",
                                         "une chaine de caracteres"};
 
+    /** Methode getBoolean: recoit la confirmation ou le refus de l'utilisateur
+     * @param ask la demande affichee a l'utilisateur
+     * @param check la confirmation et le refus que doit entrer l'utilisateur
+     *              (oui, yes, Yes, true, VRAI, etc..)
+     * @return la confirmation ou le refus de l'utilisateur
+     */
     public static boolean getBoolean(String ask, String[] check) {
         Scanner scanner = new Scanner(System.in);
         String  input   = new String();
@@ -26,7 +32,6 @@ public class IO {
 
             System.out.println("Erreur: entrez "+ check[0] +" ou "+ check[1]);
         }
-//        return true;                                   UnreachableStatement
     }
 
     public static boolean getBoolean(String ask) {
@@ -37,7 +42,32 @@ public class IO {
         return getBoolean("Entrez "+ def[0] +": ", new String[] {"oui", "non"});
     }
 
+    /** Methode getInt: recoit un nombre entier entre par l'utilisateur
+     *  Les bornes specifiees sont incluses dans l'intervalle
+     *  Elle est principalement definie par 4 methodes, il n'existe pas une
+     *  seule methode principale qui est surchargee
+     *  De plus, ces 4 methodes sont chacunes surchargees d'une methode, dans le
+     *  cas ou le parametre ask n'est pas specifie.
+     *
+     *  Methode 1: entier dans [inf, sup]
+     *             Sans specifier le prompt on l'appelle ainsi:
+     *             int a = getInt(0, 100);
+     *  Methode 2: entier inferieur ou egal a sup
+     *             On l'appelle alors avec une chaine de caractere a la place parametre inf:
+     *             int b = getInt("", 100);
+     *  Methode 3: entier superieur ou egal a inf
+     *             De la meme maniere:
+     *             int c = getInt(0, "");
+     *  Methode 4: entier relatif
+     *             int d = getInt();
+     */
 
+    /** Surcharge getInt n°1
+     * @param inf       la borne inferieure de l'intervalle des valeurs acceptees
+     * @param sup       la borne superieure
+     * @param ask       le message affiche a l'utilisateur (prompt)
+     * @return          un entier appartenant a [inf; sup]
+     */
     public static int getInt(int inf, int sup, String ask) {
         Scanner scanner    = new Scanner(System.in);
         boolean done       = false;
@@ -78,6 +108,12 @@ public class IO {
     }
 
 
+    /** Surcharge getInt n°2
+     * @param infNotDefined     la borne inferieure n'existe pas
+     * @param sup               la borne superieure
+     * @param ask               le message affiche a l'utilisateur (prompt)
+     * @return                  un entier inferieur ou egal a sup
+     */
     public static int getInt(String infNotDefined, int sup, String ask) {
         Scanner scanner    = new Scanner(System.in);
         boolean done       = false;
@@ -107,6 +143,12 @@ public class IO {
     }
 
 
+    /** Surcharge getInt n°3
+     * @param inf               la borne inferieure
+     * @param supNotDefined     la borne superieure n'existe pas
+     * @param ask               le message affiche a l'utilisateur (prompt)
+     * @return                  un entier superieur ou egal a inf
+     */
     public static int getInt(int inf, String supNotDefined, String ask) {
         Scanner scanner    = new Scanner(System.in);
         boolean done       = false;
@@ -136,6 +178,10 @@ public class IO {
     }
 
 
+    /** Surcharge getInt n°4
+     * @param ask               le message affiche a l'utilisateur (prompt)
+     * @return                  un nombre relatif
+     */
     public static int getInt(String ask) {
         Scanner scanner    = new Scanner(System.in);
         boolean done       = false;
@@ -162,6 +208,10 @@ public class IO {
     }
 
 
+    /** Methode getString: recoit une chaine de caractere
+     * @param ask       le message affiche a l'utilisateur (prompt)
+     * @return          la chaine de caractere entree
+     */
     public static String getString(String ask) {
         Scanner scanner = new Scanner(System.in);
         System.out.print(ask);
