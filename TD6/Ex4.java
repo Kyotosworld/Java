@@ -11,7 +11,7 @@ public class Ex4 {
             count[t[i]-1]++;
         }
         for (int i=0; i<count.length; i++) {
-            System.out.println(i+1 +" : "+ String.valueOf(count[i]));
+            System.out.println(i+1 +" : "+ count[i]);
         }
     }
 
