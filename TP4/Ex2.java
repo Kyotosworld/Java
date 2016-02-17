@@ -1,4 +1,4 @@
-package TD4;
+package TP4;
 
 public class Ex2 {
 

@@ -1,4 +1,4 @@
-package TD2;
+package TP2;
 
 public class Ex2 {
     /* Ce programme illustre l'utilisation du type booleen dans des instructions conditionnelles.

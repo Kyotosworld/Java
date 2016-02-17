@@ -1,4 +1,4 @@
-package TD5;
+package TP5;
 
 public class Ex1 {
 /* ALGORITHME ListerNombresParfaits

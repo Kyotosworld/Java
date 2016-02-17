@@ -1,4 +1,4 @@
-package TD6;
+package TP6;
 import java.lang.Math;
 
 public class Ex1 {

@@ -1,4 +1,4 @@
-package TD3;
+package TD1_TP3;
 import java.util.Scanner;
 import java.lang.Math;
 

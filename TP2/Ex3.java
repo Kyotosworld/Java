@@ -1,4 +1,4 @@
-package TD2;
+package TP2;
 import Outils.IO;
 import java.util.Scanner;
 

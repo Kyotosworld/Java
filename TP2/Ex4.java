@@ -1,4 +1,4 @@
-package TD2;
+package TP2;
 
 public class Ex4 {
     public static void main(String[] args) {

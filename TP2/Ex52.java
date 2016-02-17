@@ -1,4 +1,4 @@
-package TD2;
+package TP2;
 import java.lang.Math;
 
 public class Ex52 {

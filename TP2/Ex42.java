@@ -1,4 +1,4 @@
-package TD2;
+package TP2;
 import java.util.Scanner;
 
 public class Ex42 {

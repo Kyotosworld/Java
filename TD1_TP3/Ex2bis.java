@@ -1,4 +1,4 @@
-package TD3;
+package TD1_TP3;
 
 public class Ex2bis {
     public static void main(String[] args) {

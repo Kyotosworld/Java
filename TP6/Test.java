@@ -1,4 +1,4 @@
-package TD6;
+package TP6;
 import Outils.IO;
 
 public class Test {

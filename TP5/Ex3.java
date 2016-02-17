@@ -1,4 +1,4 @@
-package TD5;
+package TP5;
 import Outils.IO;
 
 public class Ex3 {

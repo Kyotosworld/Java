@@ -1,4 +1,4 @@
-package TD7;
+package TD2_TP7;
 import java.util.StringTokenizer;
 
 public class Ex6 {
