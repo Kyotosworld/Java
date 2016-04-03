@@ -1,4 +1,4 @@
-package TP8;
+package TD3_TP8;
 import Outils.IO;
 
 public class Test {
@@ -8,6 +8,7 @@ public class Test {
     */
     public static void main(String[] args) {
         int[] tab = new int[10];
+        int min = 0;
 
         System.out.println("Entrez 10 valeurs dans le tableau:");
         for (int i=0; i<tab.length; i++) {
@@ -17,8 +18,9 @@ public class Test {
 
         System.out.println("Tri du tableau:");
         for (int i=0; i<tab.length; i++) {
-            Ex1.positionPlusPetit(tab, i);
-            System.out.println("Itération n°"+(i+1));
+            min = Ex21.positionPlusPetit(tab, i);
+            Ex21.echangePositions(tab, i, min);
+            System.out.println("\nItération n°"+(i+1));
             afficheTableau(tab);
         }
     }
