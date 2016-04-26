@@ -71,17 +71,11 @@ public class IO {
     public static int getInt(int inf, int sup, String ask) {
         Scanner scanner    = new Scanner(System.in);
         boolean done       = false;
-        int i              = 0;
         int input          = 0;
-        int[] inter        = {};
         String errorString = "";
 
         if (inf >= sup)
             throw new java.lang.NegativeArraySizeException();
-        for (i=0; i<(sup-inf); i++) {
-            inter[i] = inf;
-            inf++;
-        }
 
         while (!done) {
             System.out.print(ask);
@@ -93,12 +87,10 @@ public class IO {
                 scanner.next();
                 continue;
             }
-            for (int ele : inter) {
-                if (ele == input)
-                    done = true;
-            }
+            if (input >= inf && input <= sup)
+                done = true;
             if (!done)
-                System.out.println(input +" n'est pas compris dans ["+ inf +"; "+ sup);
+                System.out.println(input +" n'est pas compris dans ["+ inf +"; "+ sup +"]");
         }
         return input;
     }
