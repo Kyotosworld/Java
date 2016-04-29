@@ -1,6 +1,6 @@
 public class Pion {
 
-    private String etat = "p";
+    private String etat = "§";
     private boolean couleur;
 
     /** Pion
@@ -20,7 +20,7 @@ public class Pion {
      *  une dame, symbolisé par "D"
      */
     public void evoluer() {
-        this.etat = "D";
+        this.etat = "£";
     }
 
     /** toString
@@ -33,9 +33,12 @@ public class Pion {
      *         et coloré selon la couleur du pion
      **/
     public String toString() {
-        String codeCouleur = (this.couleur)? "\033[0;39m": "\033[0;31m";
-        String codeFin     = "\033[0;00m";
-        return codeCouleur+this.etat+codeFin;
+        String codeCouleur = (this.couleur)? Jeu.BLANC: Jeu.ROUGE;
+        return codeCouleur+this.etat+Jeu.RESET;
+    }
+
+    public boolean getCouleur() {
+    	return this.couleur;
     }
 
 }
