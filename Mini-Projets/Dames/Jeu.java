@@ -155,6 +155,7 @@ public class Jeu {
                 
                 // dans le cas du déplacement
                 deltaY = coord[3] - coord[1];
+                // <CONDITION DE DEPLACEMENT>
                 if (coord.length == 4 && valAbs(deltaY) == 1) {
                     // on doit avoir : x2 = x1 +- 1
                     erreur = (valAbs(coord[2] - coord[0]) != 1)? true: erreur;
@@ -181,7 +182,7 @@ public class Jeu {
                         // une erreur puisqu'on appellerait la méthode getCouleur() d'une case vide
                         try {
                         erreur = ( p.getPion(xPrecedent+deltaX/2, yPrecedent+deltaY/2).getCouleur() ==
-                                   p.getPion(xPrecedent, yPrecedent).getCouleur() )? true: erreur;
+                                   p.getPion(coord[0], coord[1]).getCouleur() )? true: erreur;
                         } catch (java.lang.NullPointerException err) {
                             erreur = true;
                         }
@@ -235,8 +236,7 @@ public class Jeu {
                 case Directionnel:
                     break;
                 case Coordonnees:
-                    System.out.println("got ");
-                    p.deplacer(coord[0], coord[1], coord[2], coord[3]);
+                    p.deplacer(coord);
                     break;
             }
 

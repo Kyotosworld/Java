@@ -10,7 +10,7 @@ public class Plateau {
      * @return un plateau rempli avec deux rangées de pions de chaque couleur
      */
     public Plateau(int taille) {
-    	boolean b = true;
+        boolean b = true;
         this.taille = taille;
 
         this.plateau = new Pion[taille][taille];
@@ -21,10 +21,10 @@ public class Plateau {
         // quatre dernières. Ils sont placés en décalage les blancs par rapport aux noirs.
         for (int i=0; i<taille; i++) {
             for (int j=0; j<4; j++) {
-            	if (b)
-                	this.plateau[i][j] = new Pion(true);
+                if (b)
+                    this.plateau[i][j] = new Pion(true);
                 else
-                	this.plateau[i][taille-1-j] = new Pion(false);
+                    this.plateau[i][taille-1-j] = new Pion(false);
                 b = !b;
             }
             b = !b;
@@ -38,13 +38,36 @@ public class Plateau {
         */
     }
 
-    public void deplacer(int x1, int y1, int x2, int y2) {
-        if (this.plateau[x2][y2] != null)
-            System.out.println(Jeu.VERT+"MANGE"+Jeu.RESET);
-        this.plateau[x2][y2] = this.plateau[x1][y1];
-        this.plateau[x1][y1] = null;
-        if (x2 == taille-1)
-            this.plateau[x2][y2].evoluer();
+    public void deplacer(int[] coord) {
+        int xPrec, yPrec, xNouv, yNouv, deltaX, deltaY;
+        xPrec = coord[0];
+        yPrec = coord[1];
+        deltaY = coord[3] - coord[1];
+        // dans le cas du déplacement
+        if (coord.length == 4 && Jeu.valAbs(deltaY) == 1) {
+            this.plateau[coord[2]][coord[3]] = this.plateau[xPrec][yPrec];
+            this.plateau[xPrec][yPrec] = null;
+        // dans le cas d'un pion adverse mangé
+        } else {
+            for (int i=2; i<coord.length; i=i+2) {
+                xNouv = coord[i];
+                yNouv = coord[i+1];
+                deltaX = xNouv - xPrec;
+                deltaY = yNouv - yPrec;
+                
+                // on met le pion a sa nouvelle position
+                this.plateau[xNouv][yNouv] = this.plateau[xPrec][yPrec];
+                this.plateau[xPrec][yPrec] = null;
+
+                // on efface le pion mangé
+                this.plateau[xPrec+deltaX/2][yPrec+deltaY/2] = null;
+
+                xPrec = xNouv;
+                yPrec = yNouv;
+            }
+        }
+        if (coord[coord.length-1] == taille-1)
+            this.plateau[coord[coord.length-2]][coord[coord.length-1]].evoluer();
     }
 
     public void afficher() {
@@ -75,7 +98,7 @@ public class Plateau {
 
         s = "    ";
         for (int i=1; i<=taille; i++)
-        	s += (i%10)+" ";
+            s += (i%10)+" ";
         System.out.println(s);
     }
 
