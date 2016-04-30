@@ -33,9 +33,32 @@ public class Jeu {
     public static final String FIN    = "Au revoir !\n";
 
 
-    public static int taille = TAILLE_DEFAUT;
-    public static int mode   = 1;
-    public static Plateau p;
+    /** ModeEntree
+     *  Définit les différentes façons dont un joueur peut "écrire" le déplacement
+     *  d'un pion.
+     *
+     *  Directionnel : "x y d" où x est l'abscisse du pion à déplacer
+     *                            y est l'ordonnéee du pion à déplacer
+     *                            d est la direction dans laquelle le déplacer, en
+     *                            tenant compte des règles.
+     *  Dans le jeu de dames, avec un pion on peut se déplacer en avant à gauche, ou à droite
+     *  donc d = "g" ou "d".
+     *  Avec une dame par contre on peut se déplacer dans la diagonale souhaitée
+     *  donc d = "hg"/"hd"/"bg"/"bd"
+     *
+     *  Coordonnees : "x1 y1 x2 y2"
+     *  On indique les coordonnées du point de départ et du point d'arrivée
+     */
+    private enum ModeEntree {
+        Directionnel, Coordonnees
+    }
+    private static ModeEntree mode = ModeEntree.Coordonnees;
+
+    private enum EtatDuJeu {
+        Victoire, Défaite, Neutre
+    }
+    private static int taille = TAILLE_DEFAUT;
+    private static Plateau p;
 
     public static void main(String[] args) {
         menu();
@@ -56,16 +79,15 @@ public class Jeu {
      *         un tableau vide sinon
      *         jeu() teste le résultat avant de l'utiliser
      */
-    public static int[] entree() {
+    public static int[] entree(String s) {
         String etat;
         boolean erreur = false;
-        
-        String s = IO.getString("Sélectionnez un pion: ");
+
         String[] arr = s.split(" ");
         int[] rep = new int[arr.length];
 
         switch(mode) {
-            case 0:
+            case Directionnel:
                 try {
                     rep[0] = Integer.parseInt(arr[0].trim()) -1;
                     rep[1] = Integer.parseInt(arr[1].trim()) -1;
@@ -73,12 +95,12 @@ public class Jeu {
                     // si le premier point n'est pas un pion -> s'il est null
                     erreur = (p.getPion(rep[0], rep[1]) == null)? true: erreur;
                 } catch (java.lang.ArrayIndexOutOfBoundsException |
-                         java.lang.NumberFormatException | 
+                         java.lang.NumberFormatException |
                          java.util.InputMismatchException err) {
                     erreur = true;
                 }
                 break;
-            case 1:
+            case Coordonnees:
                 try {
                     // on doit avoir des couples de 2 variables, au moins un couple de départ
                     // et un d'arrivée, optionnellement d'autres couples intermédiaires
@@ -90,7 +112,7 @@ public class Jeu {
                     // toutes les variables doivent appartenir à [0; taille[
                     for (int ele : rep)
                         erreur = (ele < 0 || ele >= taille)? true: erreur;
-                    
+
                     // le premier point doit correspondre à un pion
                     erreur = (p.getPion(rep[0], rep[1]) == null)? true: erreur;
                 } catch (java.lang.ArrayIndexOutOfBoundsException |
@@ -115,7 +137,7 @@ public class Jeu {
      *  - ou on prend des pions adverses, en "sautant" par-dessus, dans n'importe quelle direction
      *  Pour une dame:
      */
-    public static int[] regles(int[] coord) {
+    public static int[] regles(int[] coord, boolean joueur) {
         String etat;
         boolean erreur = false;
         int deltaX, deltaY, xPrecedent, yPrecedent;
@@ -124,38 +146,45 @@ public class Jeu {
         yPrecedent = coord[1];
 
         switch(mode) {
-            case 0:
+            case Directionnel:
                 break;
-            case 1:
+            case Coordonnees:
                 // les autres points doivent correspondre à des cases vides
                 for (int i=2; i<coord.length; i=i+2)
                     erreur = (p.getPion(coord[i], coord[i+1]) != null)? true: erreur;
                 
                 // dans le cas du déplacement
-                if (coord.length == 4) {
+                deltaY = coord[3] - coord[1];
+                if (coord.length == 4 && valAbs(deltaY) == 1) {
                     // on doit avoir : x2 = x1 +- 1
-                    erreur = (valAbs(coord[2] -coord[0]) != 1)? true: erreur;
-                    // on doit avoir : y2 = y1 + 1
-                    erreur = (coord[3] - coord[1] != 1)? true: erreur;
+                    erreur = (valAbs(coord[2] - coord[0]) != 1)? true: erreur;
+                    // le sens de déplacement dépend du camp
+                    // les blancs avancent dans le sens du plateau -> y2 = y1 +1
+                    // les noirs font l'inverse                    -> y2 = y1 -1
+                    if (joueur)
+                        erreur = (deltaY != 1)? true: erreur;
+                    else
+                        erreur = (deltaY != -1)? true: erreur;
                 // dans le cas de la prise de pièces adverses
                 } else {
                     for (int i=2; i<coord.length; i=i+2) {
                         deltaX = coord[i] - xPrecedent;
                         deltaY = coord[i+1]-yPrecedent;
 
-                        // on vérifie qu'on avance de +-2 en x et +2 en y
-                        erreur = (valAbs(deltaX) == 2)? true: erreur;
-                        erreur = (valAbs(deltaY) == 2)? true: erreur;
+                        // on vérifie qu'on avance de +-2 en x et +-2 en y
+                        // (même un pion a le droit de "manger" un autre pion vers l'arrière)
+                        erreur = (valAbs(deltaX) != 2)? true: erreur;
+                        erreur = (valAbs(deltaY) != 2)? true: erreur;
 
                         // on vérifie qu'il y a un pion adverse sur la case sautée
                         // on fait un try catch : la case pourrait aussi être vide, on aurait alors
                         // une erreur puisqu'on appellerait la méthode getCouleur() d'une case vide
                         try {
-                        erreur = ( p.getPion(coord[i]+deltaX/2, coord[i+1]+deltaY/2).getCouleur() ==
-                                   p.getPion(coord[i], coord[i+1]).getCouleur() )? true: erreur;
+                        erreur = ( p.getPion(xPrecedent+deltaX/2, yPrecedent+deltaY/2).getCouleur() ==
+                                   p.getPion(xPrecedent, yPrecedent).getCouleur() )? true: erreur;
                         } catch (java.lang.NullPointerException err) {
                             erreur = true;
-                        }                       
+                        }
                         xPrecedent = coord[i];
                         yPrecedent = coord[i+1];
                     }
@@ -174,12 +203,13 @@ public class Jeu {
 
     public static void jeu() {
         boolean joueur = true;
-        boolean gagne  = false;
+        EtatDuJeu etat = EtatDuJeu.Neutre;
         boolean erreur = false;
+        String  s;
         int[]   coord;              // correspond à rep[] dans entree()
         p = new Plateau(taille);
 
-        while (!gagne) {
+        while (etat == EtatDuJeu.Neutre) {
             // on efface l'ecran, on affiche l'en-tête puis le plateau
             System.out.print(EFFACE + INTRO);
             p.afficher();
@@ -187,27 +217,37 @@ public class Jeu {
             // tant que les coordonnées entrées ne sont pas valides
             do {
                 erreur = false;
-                coord = entree();
+                s = IO.getString((!joueur?ROUGE:"")+"Déplacement: ");
+                System.out.print(RESET);
+                coord = entree(s);
                 if (coord.length != 0)
-                    coord = regles(coord);
+                    coord = regles(coord, joueur);
 
                 // erreur dans jeu() correspond à erreur dans entree()
                 // elle est true si le tableau est vide
                 // le tableau ne peut en aucun autre cas être vide
                 erreur = (coord.length == 0)? true: false;
                 if (erreur)
-                    System.out.println(ROUGE+"Erreur : coordonnées non valides"+RESET);
+                    System.out.println(JAUNE+"Erreur : coordonnées non valides"+RESET);
             } while (erreur);
 
             switch(mode) {
-                case 0:
+                case Directionnel:
                     break;
-                case 1:
+                case Coordonnees:
                     System.out.println("got ");
                     p.deplacer(coord[0], coord[1], coord[2], coord[3]);
                     break;
             }
+
+            etat = etat();
+
+            joueur = !joueur;
         }
+    }
+
+    public static EtatDuJeu etat() {
+        return EtatDuJeu.Neutre;
     }
 
     /** menu
