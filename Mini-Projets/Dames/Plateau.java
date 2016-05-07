@@ -54,7 +54,7 @@ public class Plateau {
                 yNouv = coord[i+1];
                 deltaX = xNouv - xPrec;
                 deltaY = yNouv - yPrec;
-                
+
                 // on met le pion a sa nouvelle position
                 this.plateau[xNouv][yNouv] = this.plateau[xPrec][yPrec];
                 this.plateau[xPrec][yPrec] = null;
