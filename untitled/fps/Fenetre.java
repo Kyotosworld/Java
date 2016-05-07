@@ -8,12 +8,12 @@ import java.awt.Color;
 public class Fenetre extends JFrame {
 
     // Paramètres de la fenêtre
-    public static final int LARGEUR = 1200;
-    public static final int HAUTEUR = 700;
-    public static final int DIFF = 37;
+    public static final int LARGEUR = 1280;
+    public static final int HAUTEUR = 720;
 
     // ContentPane de la fenetre
     private Panneau p;
+    private int fps;
 
 
     /** main
@@ -36,14 +36,15 @@ public class Fenetre extends JFrame {
      */
     public Fenetre() {
         this.setTitle("untitled");
-        this.setSize(Fenetre.LARGEUR, Fenetre.HAUTEUR+Fenetre.DIFF);
+        this.setSize(Fenetre.LARGEUR, Fenetre.HAUTEUR);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // création et initialisation des composants
+        fps = 0;
 
-        p = new Panneau();
+        p = new Panneau(fps);
         this.setContentPane(p);
         this.setVisible(true);
         this.mainLoop();
@@ -52,12 +53,28 @@ public class Fenetre extends JFrame {
     public void mainLoop() {
         Image offscreen = createImage(Fenetre.LARGEUR, Fenetre.HAUTEUR);
 
+        int frames = 0;
+        long time0 = System.currentTimeMillis();
+        long time;
+
     	while(true) {
+            time = System.currentTimeMillis();
+            frames++;
+            if(time - time0 >= 1000) {
+                this.fps = frames;
+                p.fps = frames;
+                time0 = time;
+                frames = 0;
+            } else {
+                try {
+                    Thread.sleep(20);
+                } catch (InterruptedException err) {
+                    System.exit(1);
+                }
+            }
 
             this.p.paintComponent(offscreen.getGraphics());
             this.p.getGraphics().drawImage(offscreen, 0, 0, this);
-            try {Thread.sleep(15);}
-            catch (InterruptedException err) {System.exit(1);}
         }    
     }
 }

@@ -14,7 +14,7 @@ public class Fenetre extends JFrame {
 
     // ContentPane de la fenetre
     private Panneau p;
-
+    private Boule b;
 
     /** main
      *  Crée une nouvelle fenêtre
@@ -42,8 +42,9 @@ public class Fenetre extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // création et initialisation des composants
+        this.b = new Boule(400, 200, 40);
 
-        p = new Panneau();
+        p = new Panneau(b);
         this.setContentPane(p);
         this.setVisible(true);
         this.mainLoop();
@@ -54,10 +55,19 @@ public class Fenetre extends JFrame {
 
     	while(true) {
 
+            b.update();
+            p.i+=50;
+            if (p.i>=1200) {
+            	p.i=0;
+            	p.j+=50;
+            }
+
             this.p.paintComponent(offscreen.getGraphics());
             this.p.getGraphics().drawImage(offscreen, 0, 0, this);
+
             try {Thread.sleep(15);}
             catch (InterruptedException err) {System.exit(1);}
-        }    
+        } 
+
     }
 }
