@@ -32,4 +32,3 @@ Cette classe ne fait que vérifier les données entrées pour ne pas accepter un
 ```
 Scanner sc = new Scanner(System.in);
 int entier = sc.nextInt();
-```
