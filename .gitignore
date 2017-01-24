@@ -1,16 +1,9 @@
-*.class
-*/*.class
-*/*/*.class
-
 *.sh
-*/*.sh
-*/*/*.sh
+*.bat
+*.class
 
-test.java
-*/test.java
-*/*/test.java
+*.mp3
+*.mp4
+*.txt
 
-Recup/*
-
-java-work.sublime-project
-java-work.sublime-workspace
+UnstagedFile.*
