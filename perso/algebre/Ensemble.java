@@ -1,10 +1,10 @@
 /******************************************************************************
- * Domaine                                                                    *
+ * Ensemble                                                                   *
  *                                                                            *
  * @author  Gabriel Forien                                                    *
  * @version 0.1                                                               *
  ******************************************************************************/
-class Domaine {
+class Ensemble {
 
     /* Définissent le type de bornes */
     private Inegalite typeInf;
@@ -15,7 +15,7 @@ class Domaine {
 
 
    /***************************************************************************
-    * Domaine                                                                 *
+    * Ensemble                                                                *
     ***************************************************************************
     * @param typeInf Définit l'existence ou non d'une borne inférieure,       *
     *                borne qui est atteinte ou non                            *
@@ -23,12 +23,12 @@ class Domaine {
     * @param inf Borne inférieure si elle est définie                         *
     * @param sup                                                              *
     ***************************************************************************/
-    Domaine(Inegalite typeInf, Inegalite typeSup, double inf, double sup) {
+    Ensemble(Inegalite typeInf, Inegalite typeSup, double inf, double sup) {
         this.typeInf = typeInf;
         this.typeSup = typeSup;
         this.inf = inf;
         this.sup = sup;
-    } /* FIN Domaine */
+    } /* FIN Ensemble */
 
    /***************************************************************************
     * toString                                                                *

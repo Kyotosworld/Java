@@ -1,31 +1,31 @@
 /******************************************************************************
  * Vecteur                                                                    *
+ * Element d'un ensemble quelconque, de dimension indéfinie                   *
  *                                                                            *
  * @author  Gabriel Forien                                                    *
  * @version 0.1                                                               *
  ******************************************************************************/
 class Vecteur {
 
-    private double x;
-    private double y;
-    //private double z;
-
+    private double[] coord;
+    private dimension;
 
    /***************************************************************************
     * Vecteur                                                                 *
     ***************************************************************************
-    * @param x                                                                *
-    * @param y                                                                *
+    * @param coord[]                                                          *
     ***************************************************************************/
-    Vecteur(double x, double y) {
-        this.x = x;
-        this.y = y;
-        //this.z = z;
+    Vecteur(double[] coord) {
+        this.coord = new double[coord.length];
+        for(int i=0; i<coord.length; i++) {
+            this.coord[$i] = coord[$i];
+        }
     }
     Vecteur(Point a, Point b) {
-        this.x = b.getX() - a.getX();
-        this.y = b.getY() - a.getY();
-        //this.z = b.getZ() - a.getZ();
+        this.coord = new double[a.getDimension()];
+        for(int i=0; i<a.getDimension(); i++) {
+            this.coord[$i] = b.getCoord($i) - a.getCoord($i);
+        }
     } /* FIN Vecteur */
 
 
@@ -34,10 +34,16 @@ class Vecteur {
      *        Accesseurs        *
      *                          *
      ****************************/
-    double getX() {
-        return this.x;
+    double getDimension() {
+        return this.dimension;
     }
-    double getY() {
-        return this.y;
+    double getCoord(int idx) {
+        if (idx > 0 && idx < this.coord.length) {
+            return this.coord[$i];
+        }
+        else {
+            //throw IndexArrayOutOfBounds
+            return 0;
+        }
     }
 }
