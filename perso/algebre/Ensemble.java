@@ -1,28 +1,28 @@
-/******************************************************************************
- * Ensemble                                                                   *
- *                                                                            *
- * @author  Gabriel Forien                                                    *
- * @version 0.1                                                               *
- ******************************************************************************/
+/**------------------------------------------------------------------------------------------
+| Ensemble.java                                                                             |
+|                                                                                           |
+|                                                                                           |
+|                                                                                           |
+| @author Gabriel Forien                                                                    |
+| @version 0.1                                                                              |
+--------------------------------------------------------------------------------------------*/
 class Ensemble {
 
-    /* Définissent le type de bornes */
+    /* Définit le type de bornes */
     private Inegalite typeInf;
     private Inegalite typeSup;
-    /* Définissent les bornes */
+    /* Définit les bornes */
     private double inf;
     private double sup;
 
-
-   /***************************************************************************
-    * Ensemble                                                                *
-    ***************************************************************************
-    * @param typeInf Définit l'existence ou non d'une borne inférieure,       *
-    *                borne qui est atteinte ou non                            *
-    * @param typeSup                                                          *
-    * @param inf Borne inférieure si elle est définie                         *
-    * @param sup                                                              *
-    ***************************************************************************/
+    /**------------------------------------------------------------------------------------------
+    | Ensemble                                                                                  |
+    |-------------------------------------------------------------------------------------------|
+    | @param typeInf le type de borne inférieure (inférieure, inférieure ou égale, indéfinie)   |
+    | @param typeSup                                                                            |
+    | @param inf la borne inférieure                                                            |
+    | @param sup                                                                                |
+    --------------------------------------------------------------------------------------------*/
     Ensemble(Inegalite typeInf, Inegalite typeSup, double inf, double sup) {
         this.typeInf = typeInf;
         this.typeSup = typeSup;
@@ -30,11 +30,11 @@ class Ensemble {
         this.sup = sup;
     } /* FIN Ensemble */
 
-   /***************************************************************************
-    * toString                                                                *
-    ***************************************************************************
-    * @return Représentation du type [a ; b]                                  *
-    ***************************************************************************/
+    /**------------------------------------------------------------------------------------------
+    | toString                                                                                  |
+    |-------------------------------------------------------------------------------------------|
+    | @return Représentation du type [a ; b]                                                      |
+    --------------------------------------------------------------------------------------------*/
     String toString() {
         String s = "";
         if (this.typeInf != Inegalite.INDEFINI) {
@@ -56,11 +56,11 @@ class Ensemble {
     } /* FIN toString */
 
 
-    /****************************
-     *                          *
-     *        Accesseurs        *
-     *                          *
-     ****************************/
+    /*----------------------------
+    |                            |
+    |          Accesseurs        |
+    |                            |
+    ----------------------------*/
     Inegalite getTypeInf() {
         return this.typeInf;
     }
